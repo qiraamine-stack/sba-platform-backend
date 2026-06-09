@@ -8,16 +8,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Allow the Next.js frontend to talk to this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://sba-platform.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Register routes
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(listings.router, prefix="/api/listings", tags=["listings"])
 app.include_router(calculator.router, prefix="/api/calculator", tags=["calculator"])
