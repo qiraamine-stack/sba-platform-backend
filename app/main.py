@@ -12,7 +12,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://sba-platform.vercel.app",
+        "https://buywithsba.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
