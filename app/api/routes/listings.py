@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 from app.core.database import get_db, Base, engine
 from app.models.listing import Listing
 from app.services.sba_loan import check_sba_eligibility
@@ -19,8 +19,12 @@ class ListingCreate(BaseModel):
     annual_revenue: Optional[float] = None
     annual_net_income: Optional[float] = None
     sde: Optional[float] = None
-    year_established: Optional[int] = None
+    ebitda: Optional[float] = None
+    monthly_rent: Optional[float] = None
+    monthly_expenses: Optional[float] = None
     employees: Optional[int] = None
+    real_estate_included: Optional[bool] = False
+    year_established: Optional[int] = None
     reason_for_sale: Optional[str] = None
     seller_name: str
     seller_email: str
