@@ -13,6 +13,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://buywithsba.com",
+        "https://www.buywithsba.com",
+        "https://sba-platform.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
