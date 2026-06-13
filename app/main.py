@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes import auth, listings, calculator
+from app.api.routes import auth, listings, calculator, admin
 
 app = FastAPI(
     title="SBA Business Valuation Platform",
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(listings.router, prefix="/api/listings", tags=["listings"])
 app.include_router(calculator.router, prefix="/api/calculator", tags=["calculator"])
+app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 
 @app.get("/")
 def root():
