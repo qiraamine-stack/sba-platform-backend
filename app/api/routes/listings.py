@@ -5,6 +5,7 @@ from typing import Optional
 from app.core.database import get_db, Base, engine
 from app.models.listing import Listing
 from app.services.sba_loan import check_sba_eligibility
+from app.services.email import send_new_listing_notification
 
 Base.metadata.create_all(bind=engine)
 
@@ -69,6 +70,7 @@ def create_listing(data: ListingCreate, db: Session = Depends(get_db)):
     db.add(listing)
     db.commit()
     db.refresh(listing)
+    send_new_listing_notification(listing.title, listing.asking_price, listing.seller_name, listing.seller_email, listing.industry)
     return listing
 
 @router.delete("/{listing_id}")

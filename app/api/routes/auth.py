@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from app.core.database import get_db, Base, engine
 from app.models.user import User
 from app.core.security import hash_password, verify_password, create_access_token
+from app.services.email import send_new_user_notification
 
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
@@ -33,6 +34,7 @@ def register(data: RegisterInput, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(user)
     token = create_access_token({"sub": str(user.id), "email": user.email})
+    send_new_user_notification(user.email, user.full_name, user.role)
     return {"token": token, "user": {"id": user.id, "email": user.email, "full_name": user.full_name, "role": user.role}}
 
 @router.post("/login")
